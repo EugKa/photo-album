@@ -1,0 +1,22 @@
+.card {
+  height: 250px;
+  margin: 10px;
+  position: relative;
+  &__image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+  }
+  &__btn {
+    position: absolute;
+    top: 210px;
+    color: #ffff;
+  }
+}
+
+.card:hover {
+  .card__btn {
+    color: red;
+  }
+}
