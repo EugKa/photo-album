@@ -9,8 +9,10 @@
     background-position: center;
   }
   &__btn {
+    cursor: pointer;
     position: absolute;
-    top: 210px;
+    top: 217px;
+    right: 10px;
     color: #ffff;
   }
 }

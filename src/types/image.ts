@@ -1,5 +1,5 @@
 export interface IImage {
-    id: string | number;
+    id: number;
     largeImageURL: string;
     pageURL: string;
     previewURL: string;

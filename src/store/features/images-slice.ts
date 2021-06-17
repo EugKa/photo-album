@@ -5,23 +5,19 @@ import { IImage } from "../../types/image";
 interface AppState {
   data: IImage[];
   status: 'idle' | 'pending' | 'succeeded' | 'failed';
-  favorites: [];
 }
 
 const initialState = {
   data: [],
   status: 'idle',
-  favorites: []
 } as AppState
 
 export const fetchData = createAsyncThunk(
     "@@DATA/fetchDataList",
     async (params: any) => {
       const {searchParam, page} = params;
-      console.log(`THUNK`, params)
       const data = await fetchImagesData(searchParam, page);
-      return data;
-      
+      return data;    
     }
 )
 
@@ -43,5 +39,7 @@ const imagesSlice = createSlice({
     });
   },
 })
+
+// export const { addItemToFavor } = imagesSlice.actions;
 
 export default imagesSlice.reducer;

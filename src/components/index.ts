@@ -1,3 +1,5 @@
 export * from './header'
 export * from './image-Item'
 export * from './image-list'
+export * from './pagination'
+export * from './favorite-list'

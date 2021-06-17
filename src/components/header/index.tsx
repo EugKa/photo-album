@@ -6,6 +6,9 @@ export const Header = () => {
   return (
     <header className='header'>
         <div className="header-wrapper">
+            <Link to="/" className="header__link">
+                <h2>Избранные</h2>
+            </Link>
             <Link to="/Птицы" className="header__link">
                 <h2>Птицы</h2>
             </Link>
