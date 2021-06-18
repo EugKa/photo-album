@@ -1,31 +1,36 @@
-import React from 'react'
-import { useEffect } from 'react';
+import React, {useEffect} from 'react'
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { fetchData, addItemToFavorite, deleteItemFromFavorite } from '../../store/features';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { IImage } from '../../types/image';
-
-import Grid from '@material-ui/core/Grid';
 import { ImageItem } from "../image-Item";
 import { PaginationList } from '../pagination';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
+import Alert from '@material-ui/lab/Alert';
 
 interface MatchParams {
   id: string;
 }
 
 
-const ImageList = ({match}: RouteComponentProps<MatchParams>) => {
+const ImageList = ({match, history}: RouteComponentProps<MatchParams>) => {
   const [page, setPage] = React.useState(1);
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.imagesSlice.data);
-  const favorite = useAppSelector((state) => state.favoritesReducer);
   const status = useAppSelector((state) => state.imagesSlice.status);
+  const favorite = useAppSelector((state) => state.favoritesReducer);
+  
+  history.listen(() => {
+    setPage(1)
+  })
+  
   useEffect(() => {
     dispatch(fetchData({
       searchParam:match.params.id,
       page
     }))
+    
   }, [dispatch, match.params.id, page])
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -39,19 +44,19 @@ const ImageList = ({match}: RouteComponentProps<MatchParams>) => {
   const selectItem = (item: IImage) => {
     const existingItem = favorite.find((el) => el.id === item.id)
     if(existingItem) {
-      console.log('true');
       dispatch(deleteItemFromFavorite(item.id))
     } else {
-      console.log('false');
       dispatch(addItemToFavorite(item)) 
     }  
   }
 
 
-  if(!data) {
-      return <div>
-          loading
-      </div>
+  if(status === 'pending') {
+    return <CircularProgress/>
+  }
+
+  if(status === 'failed') {
+    return <Alert severity="error">Что-то пошло не так. Пожалуйста попробуйте позже.</Alert>
   }
   return (
        <div>

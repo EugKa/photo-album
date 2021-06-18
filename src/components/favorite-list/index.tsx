@@ -25,9 +25,9 @@ export const FavoriteList = () => {
       }
 
     if(data.length === 0) {
-        return <div>
-            Нет избранных картикон
-        </div>
+        return <h3>
+            У вас нет избранных картинок
+        </h3>
     }
     return (
         <div className={classes.root}>
